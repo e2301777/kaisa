@@ -2,11 +2,11 @@ import { useContext } from "react";
 import { BuildContext } from "./build-context";
 
 export default function Build() {
-  const { itemsInBuild, removeItemFromBuild, updateLevel, level } = useContext(BuildContext);
+  const { itemsInBuild, removeItemFromBuild, updateLevel, level, resetBuildFull } = useContext(BuildContext);
 
-  function handleSliderChange(event) {
-    const newLevel = parseInt(event.target.value, 10);
-    updateLevel(newLevel); // Update the level in the context
+  function handleRemoveItem(index) {
+    removeItemFromBuild(index);
+    resetBuildFull(); // Reset the "build full" state when an item is removed
   }
 
   return (
@@ -16,7 +16,7 @@ export default function Build() {
       <input
         type="range"
         name="level"
-        onChange={handleSliderChange}
+        onChange={(e) => updateLevel(parseInt(e.target.value, 10))}
         min={1}
         max={18}
         defaultValue={level}
@@ -47,7 +47,7 @@ export default function Build() {
                 className="delete-icon"
                 src="delete.PNG"
                 alt="delete"
-                onClick={() => removeItemFromBuild(index)}
+                onClick={() => handleRemoveItem(index)}
               />
               <p>{item.name}</p>
             </div>

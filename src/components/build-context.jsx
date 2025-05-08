@@ -72,6 +72,12 @@ function buildReducer(state, action) {
         colorScheme: themeColorSchemes[action.payload.theme],
       };
 
+    case "RESET_BUILD_FULL":
+      return {
+        ...state,
+        buildFull: false,
+      };
+
     default:
       return state;
   }
@@ -123,6 +129,10 @@ export default function BuildContextProvider({ children }) {
     localStorage.setItem("theme", theme); // Save the theme to local storage
   };
 
+  const resetBuildFull = () => {
+    buildDispatch({ type: "RESET_BUILD_FULL" });
+  };
+
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme) {
@@ -144,6 +154,7 @@ export default function BuildContextProvider({ children }) {
         removeItemFromBuild,
         updateLevel,
         setTheme,
+        resetBuildFull,
       }}
     >
       {children}
