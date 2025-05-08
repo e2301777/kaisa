@@ -45,7 +45,7 @@ export default function Build() {
               />
               <img
                 className="delete-icon"
-                src="../src/assets/delete.PNG"
+                src="delete.PNG"
                 alt="delete"
                 onClick={() => removeItemFromBuild(index)}
               />
